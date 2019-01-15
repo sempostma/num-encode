@@ -9,6 +9,9 @@
     "url": "https://github.com/LesterGallagher/num-encode.git"
   },
   "main": "index.js",
+  "bugs": {
+    "url": "https://github.com/LesterGallagher/num-encode/issues"
+  },
   "scripts": {
     "start": "webpack -w -p"
   },
