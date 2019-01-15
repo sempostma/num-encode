@@ -1,0 +1,1 @@
+window.numEncode = require('./index');
