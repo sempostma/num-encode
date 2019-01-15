@@ -42,10 +42,6 @@ const decode = (value, fromBase = 65535 /* safe range */) => {
     return convertBase(value, fromBase);
 };
 
-const encoded = encode(3123123123321, 256);
-console.log(encoded);               // ╗×(¤ôy
-console.log(decode(encoded, 256));  // 3123123123321
-
 module.exports = {
     encode: encode,
     decode: decode
