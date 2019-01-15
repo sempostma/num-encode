@@ -5,12 +5,12 @@ to utf-8 strings with any base up to the safe limit of 65535.
 
 ## Getting Started
 
-### cdn
+### CDN
 ```html
 <script src="https://cdn.jsdelivr.net/npm/num-encode@1.0.0/dist/num-encode.min.js"></script>
 ```
 
-### npm
+### NPM
 ```shell
 npm i -S num-encode
 ```
