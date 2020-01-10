@@ -10,7 +10,7 @@
   },
   "main": "index.js",
   "bugs": {
-    "url": "https://github.com/LesterGallagher/num-encode/issues"
+    "url": "https://github.com/sempostma/num-encode/issues"
   },
   "typings": "./num-encode.d.ts",
   "scripts": {
