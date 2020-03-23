@@ -13,16 +13,21 @@ const isBigIntNeeded = (value, fromBase) => {
         && hi ** hiIndex > Number.MAX_SAFE_INTEGER
 }
 
+const BI = typeof BigInt !== 'undefined' ? BigInt : Number
+
 const convertBase = (value, fromBase) => {
     const characters = value.toString().split('')
     const c = isBigIntNeeded(value, fromBase)
-        ? BigInt
+        ? BI
         : Number
-    return characters.reverse().reduce(function (carry, digit, index) {
+    const result = characters.reverse().reduce(function (carry, digit, index) {
         const digitVal = digit.charCodeAt(0);
         if (digitVal >= fromBase) throw new Error('Invalid digit `' + digit + '` for base ' + fromBase + '.');
         return carry += c(digitVal) * c(fromBase) ** c(index);
     }, c(0));
+    return c === BI && Number(result) <= Number.MAX_SAFE_INTEGER  
+        ? Number(result)
+        : result
 };
 
 /**
@@ -65,4 +70,3 @@ module.exports = {
 };
 
 
-console.log(decode(encode('2222222222222')))
