@@ -16,12 +16,16 @@ const isBigIntNeeded = (value, fromBase) => {
 const BI = typeof BigInt !== 'undefined' ? BigInt : Number
 
 const convertBase = (value, fromBase) => {
+    const isFixedCharacterSet = typeof fromBase === 'string'
+    const characterSet = isFixedCharacterSet && fromBase
+    if (isFixedCharacterSet) fromBase = characterSet.length
+
     const characters = value.toString().split('')
     const c = isBigIntNeeded(value, fromBase)
         ? BI
         : Number
     const result = characters.reverse().reduce(function (carry, digit, index) {
-        const digitVal = digit.charCodeAt(0);
+        const digitVal = isFixedCharacterSet ? characterSet.indexOf(digit) : digit.charCodeAt(0);
         if (digitVal >= fromBase) throw new Error('Invalid digit `' + digit + '` for base ' + fromBase + '.');
         return carry += c(digitVal) * c(fromBase) ** c(index);
     }, c(0));
@@ -37,6 +41,9 @@ const convertBase = (value, fromBase) => {
 (Be carefull with values above 65535 as this might cause problems with character encoding)
  */
 const encode = (value, toBase = 65535 /* safe range */) => {
+    const isFixedCharacterSet = typeof toBase === 'string'
+    const characterSet = isFixedCharacterSet && toBase
+    if (isFixedCharacterSet) toBase = characterSet.length
     var utf8 = value.toString().split('').map(function (x) {
         return String.fromCharCode(x);
     }).join('');
@@ -48,7 +55,12 @@ const encode = (value, toBase = 65535 /* safe range */) => {
         toBase = BigInt(toBase)
     }
     while (decValue > zero) {
-        newValue = String.fromCharCode(Number(decValue % toBase)) + newValue;
+        const intermediateValue = Number(decValue % toBase)
+        if (isFixedCharacterSet) {
+            newValue = characterSet[intermediateValue] + newValue;
+        } else {
+            newValue = String.fromCharCode(intermediateValue) + newValue;
+        }
         decValue = (decValue - (decValue % toBase)) / toBase;
     }
     return newValue || '0';
