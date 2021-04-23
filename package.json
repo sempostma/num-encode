@@ -1,6 +1,6 @@
 {
   "name": "num-encode",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "description": "num-encode is a zero dependency 1kb module that converts javascript base 10 numbers to utf-8 strings with any base up to the safe limit of 65535.",
   "keywords": ["webpack", "library", "encoding", "decoding", "utf8"],
   "homepage": "https://github.com/LesterGallagher/num-encode",
